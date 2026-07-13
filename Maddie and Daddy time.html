@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Adventures with Madelyn ❤️</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: linear-gradient(135deg, #ffe6ec, #ffd1dc);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      color: #333;
+    }
+
+    h1 {
+      margin-top: 20px;
+      font-size: 2.6rem;
+      text-align: center;
+      color: #d6336c;
+      text-shadow: 0 0 8px rgba(255, 182, 193, 0.6);
+    }
+
+    h2 {
+      margin-bottom: 8px;
+      text-align: center;
+      color: #e85d75;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      margin-bottom: 20px;
+      text-align: center;
+      max-width: 600px;
+      color: #444;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 40px;
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    .wheel-card {
+      background: #ffffffdd;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      padding: 20px;
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: 3px solid #ffb3c6;
+    }
+
+    .wheel-display {
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      border: 6px solid #e85d75;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      background: radial-gradient(circle, #fff0f6 0%, #ffd6e8 60%, #ffb3c6 100%);
+      font-weight: 600;
+      font-size: 1rem;
+      color: #333;
+      position: relative;
+      box-shadow: 0 0 12px rgba(255, 182, 193, 0.7);
+    }
+
+    .wheel-display::after {
+      content: "❤";
+      position: absolute;
+      top: -30px;
+      font-size: 1.6rem;
+      color: #d6336c;
+      text-shadow: 0 0 6px rgba(255, 182, 193, 0.8);
+    }
+
+    .spin-btn {
+      margin-top: 16px;
+      padding: 10px 20px;
+      border-radius: 999px;
+      border: none;
+      background: #e85d75;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .spin-btn:hover {
+      background: #d6336c;
+    }
+
+    .combined-result {
+      margin-top: 10px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      text-align: center;
+      max-width: 600px;
+      color: #d6336c;
+      text-shadow: 0 0 6px rgba(255, 182, 193, 0.6);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Adventures with Madelyn ❤️</h1>
+  <p class="subtitle">Spin an activity, spin a location, and let the heart-filled fun begin.</p>
+
+  <div class="container">
+
+    <!-- Activity Wheel -->
+    <div class="wheel-card">
+      <h2>Activity Wheel ❤️</h2>
+      <div id="activityWheel" class="wheel-display">
+        Spin for an activity!
+      </div>
+      <button class="spin-btn" onclick="spinActivity()">Spin Activity</button>
+    </div>
+
+    <!-- Location Wheel -->
+    <div class="wheel-card">
+      <h2>Location Wheel ❤️</h2>
+      <div id="locationWheel" class="wheel-display">
+        Spin for a location!
+      </div>
+      <button class="spin-btn" onclick="spinLocation()">Spin Location</button>
+    </div>
+
+  </div>
+
+  <div id="combinedResult" class="combined-result">
+    Spin both wheels to see your adventure.
+  </div>
+
+  <script>
+    const activities = [
+      "Nature walk",
+      "New playground",
+      "Picnic",
+      "Blow bubbles",
+      "Watch boats",
+      "Scavenger hunt",
+      "Sidewalk chalk",
+      "Dance party",
+      "Finger paint",
+      "Make a bracelet",
+      "Build a fort",
+      "Silly song",
+      "Treasure map",
+      "Mini movie",
+      "Superhero training",
+      "Pirate adventure",
+      "Princess quest",
+      "Dinosaur explorer",
+      "Wizard school",
+      "Pet store visit",
+      "Library time",
+      "EarlyON play",
+      "Freeze dance",
+      "Funny face contest",
+      "Puzzle time",
+      "Cozy storytime",
+      "Hot chocolate picnic",
+      "Taste test game"
+    ];
+
+    const locations = [
+      "Merritt Island",
+      "Chippawa Park",
+      "Maple Park",
+      "St. George Park",
+      "Welland Canal Trail",
+      "Lock 7",
+      "Welland Library – Main",
+      "Library – Diamond Trail",
+      "EarlyON Centre",
+      "Pet Valu",
+      "PetSmart",
+      "Farmers Market",
+      "Seaway Mall",
+      "Downtown murals walk",
+      "The Frosty Treat",
+      "Dairy Queen"
+    ];
+
+    let lastActivity = "";
+    let lastLocation = "";
+
+    function spinActivity() {
+      const wheel = document.getElementById("activityWheel");
+      const result = activities[Math.floor(Math.random() * activities.length)];
+
+      wheel.textContent = "Spinning...";
+      let spins = 0;
+      const spinInterval = setInterval(() => {
+        spins += 30;
+        wheel.style.transform = `rotate(${spins}deg)`;
+      }, 40);
+
+      setTimeout(() => {
+        clearInterval(spinInterval);
+        wheel.style.transform = "rotate(0deg)";
+        wheel.textContent = result;
+        lastActivity = result;
+        updateCombinedResult();
+      }, 1000);
+    }
+
+    function spinLocation() {
+      const wheel = document.getElementById("locationWheel");
+      const result = locations[Math.floor(Math.random() * locations.length)];
+
+      wheel.textContent = "Spinning...";
+      let spins = 0;
+      const spinInterval = setInterval(() => {
+        spins += 30;
+        wheel.style.transform = `rotate(${spins}deg)`;
+      }, 40);
+
+      setTimeout(() => {
+        clearInterval(spinInterval);
+        wheel.style.transform = "rotate(0deg)";
+        wheel.textContent = result;
+        lastLocation = result;
+        updateCombinedResult();
+      }, 1000);
+    }
+
+    function updateCombinedResult() {
+      const combined = document.getElementById("combinedResult");
+      if (lastActivity && lastLocation) {
+        combined.textContent = `Adventure: ${lastActivity} at ${lastLocation}! ❤️`;
+      } else if (lastActivity) {
+        combined.textContent = `Activity picked: ${lastActivity}. Now spin a location! ❤️`;
+      } else if (lastLocation) {
+        combined.textContent = `Location picked: ${lastLocation}. Now spin an activity! ❤️`;
+      }
+    }
+  </script>
+
+</body>
+</html>

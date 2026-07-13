@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Daddy-Daughter Adventure Wheel</title>
+<style>
+body{font-family:Arial,sans-serif;text-align:center;background:#f7f3ff}
+#wheel{width:520px;height:520px;border-radius:50%;border:8px solid #444;margin:20px auto;position:relative;transition:transform 5s cubic-bezier(.17,.67,.18,1);}
+.slice{position:absolute;width:50%;height:50%;transform-origin:100% 100%;clip-path:polygon(100% 100%,0 100%,100% 0);}
+.label{position:absolute;right:8px;bottom:45%;font-size:11px;transform-origin:right center;width:180px;text-align:right}
+#pointer{width:0;height:0;border-left:18px solid transparent;border-right:18px solid transparent;border-top:35px solid #d00;margin:0 auto}
+button{padding:12px 24px;font-size:18px}
+#result{font-size:24px;font-weight:bold;margin-top:20px}
+</style></head><body>
+<h1>🎡 Daddy-Daughter Adventure Wheel ❤️</h1>
+<div id="pointer"></div><div id="wheel"></div>
+<button onclick="spin()">SPIN THE WHEEL!</button>
+<div id="result"></div>
+<script>
+const items=[
+"Nature Walk","New Playground","Library","EarlyON","Picnic","Farmers Market",
+"Ice Cream","Watch Boats","Pet Store","Dance Party","Finger Paint","Bubbles",
+"Train Watching","Splash Pad","Blanket Fort","Bake Together","Memory Jar","Adventure Bear Photo"
+];
+const colors=["#FFD6E8","#CDEFFD","#D9F7BE","#FFF1B8","#E6D6FF","#FFCCC7"];
+const wheel=document.getElementById("wheel");
+const n=items.length,step=360/n;
+for(let i=0;i<n;i++){
+ let s=document.createElement("div");s.className="slice";
+ s.style.background=colors[i%colors.length];
+ s.style.transform=`rotate(${i*step}deg) skew(${90-step}deg)`;
+ let l=document.createElement("div");l.className="label";
+ l.style.transform=`rotate(${step/2}deg) skew(${-(90-step)}deg)`;
+ l.innerText=items[i];
+ s.appendChild(l);wheel.appendChild(s);
+}
+let rot=0;
+function spin(){
+ const idx=Math.floor(Math.random()*n);
+ const target=360*6 + (360-(idx*step+step/2));
+ rot+=target;
+ wheel.style.transform=`rotate(${rot}deg)`;
+ setTimeout(()=>{document.getElementById("result").innerHTML="💖 Today's Adventure:<br>"+items[idx];},5000);
+}
+</script></body></html>
